@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df=pd.read_excel('/content/drive/MyDrive/Colab Notebooks/linear_regression_dataset.xlsx')
+
+x=df['House_Price_Thousands'].values
+y=df['House_Size_SqFt'].values
+a=df['Age_of_House_Years'].values
+#b=df['Number_of_Bedrooms'].values
+mean_x=np.mean(x)
+mean_y=np.mean(y)
+n=len(x)
+num=0
+dnum=0
+for i in range(n):
+  num +=(x[i]-mean_x)*(y[i]-mean_y)
+  dnum +=(x[i]-mean_x)**2
+  m=num/dnum
+  c=mean_y-(m*mean_x)
+print(m,c)
+x=df['Number_of_Bedrooms'].values
+y_pred=c+m*x
+#y_pred
+plt.figure(figsize=(12,8))
+plt.plot(x,y_pred,color='#58b970',label='Regression Line')
+plt.scatter(x,y_pred,c='#ef5423',label='Scatter Plot')
+plt.xlabel('Number_of_Bedrooms')
+plt.ylabel('Price ')
+plt.title('House Price Prediction')
+plt.grid(True)
+plt.legend()
+plt.show()
